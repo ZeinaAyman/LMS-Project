@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+include "databasehandler.php";
  session_start(); ?>
 <html>
 <head>
@@ -44,7 +45,17 @@ error_reporting(0);
 
                     echo '<nav>';
                       echo '<ul class="nav__links">';
-                      echo '<span class="icon" style="position:relative; top:7px;"><i class="fas fa-comment"></i></span><span class="icon1" style="position:relative; top:7px;"><i class="fas fa-shopping-cart"></i></span>';
+                      $sql6="SELECT 1 from chat_message WHERE status=1 AND to_user_id= '".$_SESSION["id"]."' LIMIT 1";
+                      $result6 = $mysqli->query($sql6);
+                      if ($result6->num_rows > 0){
+                        while($row6 = $result6->fetch_assoc()) {
+                          echo '<span class="icon" style="position:relative; top:7px;"><i class="fas fa-comment"></i><div class="notification-badge limit active"><span class="number"></span></div></span><span class="icon1" style="position:relative; top:7px;"><i class="fas fa-shopping-cart"></i></span>';
+                        }
+                      }
+                      else {
+                        echo '<span class="icon" style="position:relative; top:7px;"><i class="fas fa-comment"></i></span><span class="icon1" style="position:relative; top:7px;"><i class="fas fa-shopping-cart"></i></span>';
+                      }
+
                         echo '<li><a href="courses.php" style="color:black;">Browse Courses</a></li>';
                         ?>
                         <div id="dd" class="wrapper-dropdown-5" tabindex="1"><img src="<?php echo $_SESSION["picture"] ?>" alt="avatar"/> <span style="position:absolute; top:18px; left:57px; "><?php echo $_SESSION["firstname"] . " " . $_SESSION["lastname"]; ?></span>
