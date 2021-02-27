@@ -4,10 +4,12 @@ h1, h2, h3, h4, h5, h6 {
     color: #384158;
     margin-bottom: 0;
 }
+body{
+  overflow-x: hidden;
+}
 * {
     margin: 0px;
     padding: 0px;
-    -webkit-font-smoothing: antialiased;
     text-shadow: rgb(0 0 0 / 1%) 0px 0px 1px;
 }
   .home_slider_nav{
@@ -156,7 +158,7 @@ p {
     font-size: 20px;
     font-weight: 700;
     color: #14bdee;
-    margin-left: 237px;
+    margin-left: 89%;
 }
 .courses_button {
     width: 210px;
@@ -322,7 +324,7 @@ textarea {
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
 }
-.team_title a {
+.team_title  {
     font-family: Roboto Slab,serif;
     font-size: 20px;
     font-weight: 700;
@@ -332,6 +334,12 @@ textarea {
     -ms-transition: all 200ms ease;
     -o-transition: all 200ms ease;
     transition: all 200ms ease;
+}
+.team_subtitle {
+    font-size: 11px;
+    font-weight: 400;
+    color: #76777a;
+    margin-top: 6px;
 }
 .footer_content {
     padding-bottom: 53px;
@@ -387,7 +395,10 @@ ul {
     transition: all 200ms ease;
 }
 .footer_logo_text span {
-    color: #14bdee;
+    color: #34A89A;
+}
+.footer_logo_text a {
+    color: white;
 }
 .footer p{
   color:white;
