@@ -34,9 +34,6 @@ $fn = $_SESSION["firstname"]; ?>
     </head>
   <body>
     <style media="screen">
-    .filter .stu {
-      width: 20px;
-    }
     input{
       font-family: 'FontAwesome';
       background-color: #444752;
@@ -165,7 +162,7 @@ $fn = $_SESSION["firstname"]; ?>
     function make_group_chat(group_chat_id, to_user_name)
     {
       var modal_content = '<div id="group_chat_dialog_'+group_chat_id+'" class="group_chat_dialog" title="Chat with '+to_user_name+'">';
-      modal_content += '<div style="height:300px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:0x; padding:16px;" class="group_chat_history" data-groupchatid="'+group_chat_id+'" id="group_chat_history_'+group_chat_id+'">';
+      modal_content += '<div style="height:350px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:0x; padding:16px;" class="group_chat_history" data-groupchatid="'+group_chat_id+'" id="group_chat_history_'+group_chat_id+'">';
       modal_content += '</div>';
       modal_content += '<div class="form-group">';
       modal_content += '<textarea style="width: 100%; height: 125px;" name="group_chat_message_'+group_chat_id+'" id="group_chat_message_'+group_chat_id+'" class="form-control"></textarea>';
@@ -182,7 +179,7 @@ $fn = $_SESSION["firstname"]; ?>
       function make_chat_dialog_box(to_user_id, to_user_name)
       {
         var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="Chat with '+to_user_name+'">';
-        modal_content += '<div style="height:300px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:0x; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
+        modal_content += '<div style="height:350px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:0x; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
         modal_content += '</div>';
         modal_content += '<div class="form-group">';
         modal_content += '<textarea style="width: 100%; height: 125px;" name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control"></textarea>';
@@ -206,7 +203,7 @@ $fn = $_SESSION["firstname"]; ?>
                 autoOpen:false,
                 draggable: false,
                 width:400,
-                position: {my: "center+85", at: "center", of: window},
+                position: {my: "center+145", at: "center", of: window},
               });
               $('#user_dialog_'+to_user_id).dialog('open');
           });
@@ -225,7 +222,7 @@ $fn = $_SESSION["firstname"]; ?>
                 autoOpen:false,
                 draggable: false,
                 width:400,
-                position: {my: "center+160", at: "center", of: window},
+                position: {my: "center+145", at: "center", of: window},
               });
               $('#group_chat_dialog_'+group_chat_id).dialog('open');
           });

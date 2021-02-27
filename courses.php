@@ -151,7 +151,7 @@ include "navbar.php";
           if(x[i].dataset.carted==0 && x[i].dataset.coursed==0)
         {
           console.log(x[i].dataset.carted);
-          x[i].addEventListener("click", function() {
+          $(x[i]).one("click", function() {
             this.innerHTML = "Added to cart";
             this.style.background="#00ff7f";
             jQuery.ajax({
