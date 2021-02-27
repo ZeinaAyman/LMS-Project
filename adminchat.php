@@ -20,17 +20,53 @@ if ($_SESSION['type']==3) {
       <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
       <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+      <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" />
+
+      <style media="screen">
+      input{
+        font-family: 'FontAwesome';
+        background-color: #444752;
+        border: none;
+        color: white;
+        padding: 13px;
+      }
+      input:hover{
+        cursor: pointer;
+      }
+      </style>
     </head>
   <body>
     <div class="container clearfix">
       <div class="people-list" id="people-list">
-        <div class="search">
-          <input type="text" placeholder="search...">
+        <div class="search" style="text-align: center;">
+          <input type="text" class="inp" placeholder="search...">
           <i class="fa fa-search"></i>
+          <div class="filter">
+            <form action="" method="POST" class="searchform">
+              <input type="submit" data-toggle="tooltip" title="Show Students" name="student" value="&#61447;"/>
+              <input type="submit" data-toggle="tooltip" title="Show Admins" name="admin" value="&#xf013;"/>
+              <input type="submit" data-toggle="tooltip" title="Show Instructors" name="group" value="&#xf086;"/>
+              <input type="submit" data-toggle="tooltip" title="Show All" name="all" value="&#xf0c0;"/>
+          </form>
+
+          </div>
         </div>
         <ul class="list">
         <?php
+        if(isset($_POST['student'])){
+          $test=0;
+          $query="SELECT * FROM students WHERE type=1 AND id !=".$_SESSION["id"];
+        }
+        else if (isset($_POST['admin'])){
+          $query="SELECT * FROM students WHERE type !=1 AND type !=5 AND id !=".$_SESSION["id"];
+        }
+        else if (isset($_POST['group'])){
+          $query="SELECT * FROM students WHERE type=5 AND id !=".$_SESSION["id"];
+        }
+        else{
           $query="SELECT * FROM students WHERE id !=".$_SESSION["id"];
+        }
+
           $statement = $connect->prepare($query);
           $statement->execute();
           $result = $statement->fetchAll();
@@ -42,7 +78,7 @@ if ($_SESSION['type']==3) {
             $photo=$row["picture"];
             $photopath="images/$photo";
             ?>
-            <div class="listcontainer" id="user_details" data-tousername="<?php echo $studentfn . " " . $studentln ?>" data-touserid="<?php echo $studentid ?>" data-id="<?php echo $_GET['id_update']; ?>" data-name="<?php echo $_GET['update_name'] ?>" >
+            <div class="listcontainer" id="user_details" data-type="<?php echo $_SESSION['type']; ?>" data-tousername="<?php echo $studentfn . " " . $studentln ?>" data-touserid="<?php echo $studentid ?>" data-id="<?php echo $_GET['id_update']; ?>" data-name="<?php echo $_GET['update_name'] ?>" >
               <div id="user_model_details"></div>
               <li class="clearfix">
                 <img src="<?php echo $photopath ?>" alt="avatar" />
@@ -60,10 +96,6 @@ if ($_SESSION['type']==3) {
          </ul>
       </div>
 
-      <div class="table-responsive">
-    <h4 align="center">Online User</h4>
-    <p align="right">Hi - <?php echo $fn;  ?> - <a href="signout.php">Logout</a></p>
-   </div>
   </div>
 
     </div> <!-- end container -->
@@ -88,13 +120,17 @@ if ($_SESSION['type']==3) {
      }
       function make_chat_dialog_box(to_user_id, to_user_name,name_update)
       {
+        var ck=document.getElementById('user_details');
+        console.log(ck.dataset.type);
         var modal_content = '<div id="user_dialog_'+to_user_id+'" class="user_dialog" title="Chat with '+name_update+', '+to_user_name+'">';
         modal_content += '<div style="height:300px; border:1px solid #ccc; overflow-y: scroll; margin-bottom:24px; padding:16px;" class="chat_history" data-touserid="'+to_user_id+'" id="chat_history_'+to_user_id+'">';
         modal_content += '</div>';
         modal_content += '<div class="form-group">';
-        modal_content += '<textarea style="width: 100%; height: 125px;" name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control"></textarea>';
-        modal_content += '</div><div class="form-group" align="right">';
-        modal_content+= '<button type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat">Send</button></div></div>';
+        if (ck.dataset.type!=2) {
+          modal_content += '<textarea style="width: 100%; height: 125px;" name="chat_message_'+to_user_id+'" id="chat_message_'+to_user_id+'" class="form-control"></textarea>';
+          modal_content += '</div><div class="form-group" align="right">';
+          modal_content+= '<button type="button" name="send_chat" id="'+to_user_id+'" class="btn btn-info send_chat">Send</button></div></div>';
+        }
         $('#user_model_details').html(modal_content);
         test= $('#chat_history_'+to_user_id);
       }
